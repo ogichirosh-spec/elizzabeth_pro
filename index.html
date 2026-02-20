@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Елизавета Соколова — SMM / EVENT</title>
+  <style>
+    :root {
+      --bg: #faf9f7;
+      --text: #111;
+      --accent: #c25c48;
+      --gray: #555;
+      --light-gray: #777;
+      --border: #e8e5e2;
+      --card-bg: #fff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #11100e;
+        --text: #f0f0f0;
+        --accent: #d68474;
+        --gray: #aaa;
+        --light-gray: #888;
+        --border: #333;
+        --card-bg: #1a1816;
+      }
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      padding: 1.4rem 5%;
+      background: rgba(250,249,247,0.88);
+      backdrop-filter: blur(14px);
+      transition: background 0.4s;
+    }
+    body.scrolled header {
+      background: rgba(250,249,247,0.97);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+    }
+    @media (prefers-color-scheme: dark) {
+      header { background: rgba(17,16,14,0.88); }
+      body.scrolled header { background: rgba(17,16,14,0.97); }
+    }
+    nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.38rem;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+    .nav-links a {
+      margin-left: 2.6rem;
+      font-size: 0.98rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* Hero без фона, с увеличенной аватаркой */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 5%;
+      max-width: 1180px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero-avatar {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 3rem;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+      border: 5px solid white;
+    }
+    .hero h1 {
+      font-size: clamp(2.9rem, 7.2vw, 5.4rem);
+      font-weight: 700;
+      line-height: 1.04;
+      margin-bottom: 1.6rem;
+      letter-spacing: -0.8px;
+    }
+    .hero .subtitle {
+      font-size: clamp(1.32rem, 3.3vw, 1.68rem);
+      color: var(--gray);
+      max-width: 680px;
+      margin-bottom: 3.2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 1.05rem 2.5rem;
+      background: var(--accent);
+      color: white;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 1.08rem;
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      background: #b04f3c;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(194,92,72,0.22);
+    }
+
+    /* Sections */
+    section {
+      padding: 16vh 5% 20vh;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    h2 {
+      font-size: 2.9rem;
+      margin-bottom: 2.8rem;
+      font-weight: 700;
+    }
+    .section-text p {
+      font-size: 1.18rem;
+      margin-bottom: 1.8rem;
+      color: var(--gray);
+      max-width: 760px;
+    }
+    .services-intro {
+      margin-bottom: 4.5rem;
+    }
+    .services-intro p {
+      font-size: 1.22rem;
+      color: var(--gray);
+    }
+    .services-intro span {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2.2rem;
+    }
+    .service-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.4rem 2rem;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.09);
+    }
+    .service-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.6rem;
+    }
+    .service-head h3 {
+      font-size: 1.48rem;
+      line-height: 1.2;
+    }
+    .service-number {
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1;
+      color: rgba(194,92,72,0.12);
+      user-select: none;
+    }
+    .service-hand {
+      font-size: 1.12rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+    .service-list {
+      list-style: none;
+      margin-bottom: 2rem;
+      font-size: 1.05rem;
+      color: var(--gray);
+    }
+    .service-list li {
+      margin-bottom: 0.9rem;
+      position: relative;
+      padding-left: 1.7rem;
+    }
+    .service-list li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+    }
+    .service-bottom {
+      font-size: 1.05rem;
+      color: var(--gray);
+      font-weight: 500;
+    }
+    .service-bottom span.service-hand {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .vk-block {
+      margin: 0 auto 2.5rem;
+      max-width: 800px;
+      aspect-ratio: 9 / 16;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    }
+    .vk-frame {
+      width: 100%;
+      height: 100%;
+    }
+    .vk-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .vk-caption {
+      text-align: center;
+      font-size: 1.05rem;
+      color: var(--gray);
+      font-style: italic;
+    }
+    .contacts-title {
+      text-align: center;
+      font-size: 2.9rem;
+      margin-bottom: 3rem;
+    }
+    .contacts {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3rem 4rem;
+    }
+    .contact-link {
+      font-size: 1.45rem;
+      font-weight: 500;
+      padding: 0.8rem 1.8rem;
+      border: 2px solid var(--accent);
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+    .contact-link:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateY(-3px);
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(60px);
+      transition: all 1.1s cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-in.delay-1 { transition-delay: 0.18s; }
+    .fade-in.delay-2 { transition-delay: 0.34s; }
+    .fade-in.delay-3 { transition-delay: 0.50s; }
+    .fade-in.delay-4 { transition-delay: 0.66s; }
+    @media (max-width: 720px) {
+      .hero-avatar {
+        width: 180px;
+        height: 180px;
+        margin-bottom: 2.5rem;
+      }
+      .hero h1 { font-size: 3.4rem; }
+      .hero .subtitle { font-size: 1.38rem; }
+      section { padding: 12vh 5% 16vh; }
+      h2 { font-size: 2.4rem; }
+      .nav-links a { margin-left: 1.6rem; font-size: 0.95rem; }
+      .contacts { flex-direction: column; align-items: center; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <nav>
+    <div class="logo">Елизавета Соколова</div>
+    <div class="nav-links">
+      <a href="#about">Обо мне</a>
+      <a href="#services">Услуги</a>
+      <a href="#portfolio">Портфолио</a>
+      <a href="#contacts">Контакты</a>
+    </div>
+  </nav>
+</header>
+<main>
+  <section class="hero">
+    <img 
+      src="https://4.downloader.disk.yandex.ru/preview/b748051b39e002130145d277792330b1e89bd0aa5300c0372586e497a34f6a7e/inf/5EroFUTBLqNCrmkxEhAlqkTPUR8R6LDhRS9UNaEan_3rKLaO3u83QYu3QiDymcu5M5wirmVdY4hMv9labuq73Q%3D%3D?uid=915160241&filename=hero.jpg.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=915160241&tknv=v3&size=1872x924"
+      alt="Елизавета Соколова" 
+      class="hero-avatar fade-in"
+    >
+    <h1 class="fade-in">
+      Елизавета Соколова.<br>SMM сбежавший в EVENT.
+    </h1>
+    <div class="subtitle fade-in delay-1">
+      Или коротко говоря — человек, который попробовал <strong>ВСЁ</strong>!
+    </div>
+    <a href="#services" class="btn fade-in delay-2">Мой прайс</a>
+  </section>
+
+  <section id="about">
+    <h2 class="fade-in">Обо мне</h2>
+    <div class="section-text">
+      <p class="fade-in delay-1">
+        Мой путь начался с должности продавца в магазине одежды в 14 лет,
+        а затем были и кондитером, и логистом, и курьером и графическим
+        дизайнером, изготовлением сувенирной и полиграфической продукции, и в общепите.
+      </p>
+      <p class="fade-in delay-2">
+        Весь этот опыт благоприятно сказался на мне, когда я окунулась в фотографию,
+        создание контента и SMM, так как у меня уже была хорошая насмотренность и
+        знания о нюансах многих сфер.
+      </p>
+      <p class="fade-in delay-3">
+        Среди моих кейсов были компании и даже эксперт по организации пространства,
+        о которой потом слышала от многих.
+      </p>
+    </div>
+  </section>
+
+  <section id="services">
+    <h2 class="fade-in">Услуги</h2>
+    <div class="services-intro fade-in delay-1">
+      <p>
+        Снимать я продолжаю и по сей день, поэтому<br>
+        <span>спектр моих услуг следующий:</span>
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-in delay-1">
+        <div class="service-head">
+          <h3>Координатор мероприятий</h3>
+          <div class="service-number">1</div>
+        </div>
+        <ul class="service-list">
+          <li>Возьму на себя все организационные моменты в день вашего события.</li>
+          <li>Обеспечу бесперебойное проведение мероприятия.</li>
+          <li>Скоординирую работу с подрядчиками всей службы и специалистов.</li>
+        </ul>
+        <div class="service-bottom">
+          По договорённости<br>
+          <span class="service-hand">в зависимости от мероприятия</span>
+        </div>
+      </div>
+      <div class="service-card fade-in delay-2">
+        <div class="service-head">
+          <h3>Съёмка #1</h3>
+          <div class="service-number">2</div>
+        </div>
+        <div class="service-hand" style="margin-bottom:8px;">Фото + Видео</div>
+        <ul class="service-list">
+          <li>Съёмка под запрос</li>
+          <li>Мероприятие</li>
+          <li>Контент для соц. сетей</li>
+        </ul>
+        <div class="service-bottom">
+          1 час / 3 000 ₽
+        </div>
+      </div>
+      <div class="service-card fade-in delay-3">
+        <div class="service-head">
+          <h3>Съёмка #2</h3>
+          <div class="service-number">3</div>
+        </div>
+        <div class="service-hand" style="margin-bottom:8px;">контент на месяц</div>
+        <ul class="service-list">
+          <li>Подбор референсов</li>
+          <li>Съёмка</li>
+          <li>15 готовых рилс на месяц</li>
+        </ul>
+        <div class="service-bottom">
+          За услугу / 15 000 ₽
+        </div>
+      </div>
+      <div class="service-card fade-in delay-4">
+        <div class="service-head">
+          <h3>Консультация</h3>
+          <div class="service-number">4</div>
+        </div>
+        <div class="service-hand" style="margin-bottom:8px;">для вас</div>
+        <ul class="service-list">
+          <li>Разберём запрос в сфере социальных сетей, контента, продвижения, рекламы</li>
+        </ul>
+        <div class="service-bottom">
+          2 часа / 5 000 ₽
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <h2 class="fade-in">Портфолио</h2>
+    <div class="vk-block fade-in delay-1">
+      <div class="vk-frame">
+        <iframe
+          src="https://vk.com/clip_ext.php?oid=-204931700&id=456239095&autoplay=1"
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+    <div class="vk-caption fade-in delay-2">
+      *Контент взят из проекта "Невеста"
+    </div>
+  </section>
+
+  <section id="contacts">
+    <div class="contacts-title fade-in">Контакты</div>
+    <div class="contacts fade-in delay-1">
+      <a class="contact-link" href="https://t.me/elizzabeth_pro" target="_blank" rel="noopener">Telegram</a>
+      <a class="contact-link" href="https://vk.com/elizzabeth_pro" target="_blank" rel="noopener">ВКонтакте</a>
+      <a class="contact-link" href="https://wa.me/79215345170" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </section>
+</main>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold: 0.08,
+    rootMargin: "0px 0px -12% 0px"
+  });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  window.addEventListener('scroll', () => {
+    document.body.classList.toggle('scrolled', window.scrollY > 70);
+  });
+</script>
+</body>
+</html>
